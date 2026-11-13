@@ -3,6 +3,7 @@ import { Box, Dialog, DialogTitle, DialogContent } from '@mui/material';
 import bakgrunn from './assets/images/bakgrunn-desktop.jpg';
 import LetterPile from './components/LetterPile';
 import { kidsWishlist } from './data/kidsWishlist';
+import Letter from './components/Letter';
 
 const BACKGROUND_RATIO = 1376 / 768;
 
@@ -31,8 +32,9 @@ function App() {
       <LetterPile onOpen={openRandomLetter} />
       </Box>
       <Dialog open={currentKid !== null} onClose={() => setCurrentKid(null)}>
-        <DialogTitle>{currentKid?.name}</DialogTitle>
-        <DialogContent>Her kommer brevet</DialogContent>
+        <DialogContent>
+          {currentKid && <Letter kid={currentKid} />}
+        </DialogContent>
       </Dialog>
   
     </Box>

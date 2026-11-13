@@ -4,6 +4,8 @@ import bakgrunn from './assets/images/bakgrunn-desktop.jpg';
 import LetterPile from './components/LetterPile';
 import { kidsWishlist } from './data/kidsWishlist';
 
+const BACKGROUND_RATIO = 1376 / 768;
+
 function App() {
   const [currentKid, setCurrentKid] = useState(null);
 
@@ -13,22 +15,26 @@ function App() {
   };
 
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        minHeight: '100vh',
-        backgroundImage: `url(${bakgrunn})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+    <Box sx={{ position: 'relative', width: '100vw', height: '100dvh', overflow: 'hidden' }}>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: `max(100vw, calc(100dvh * ${BACKGROUND_RATIO}))`,
+          aspectRatio: `${BACKGROUND_RATIO}`,
+          backgroundImage: `url(${bakgrunn})`,
+          backgroundSize: '100% 100%',
       }}
     >
       <LetterPile onOpen={openRandomLetter} />
-    
+      </Box>
       <Dialog open={currentKid !== null} onClose={() => setCurrentKid(null)}>
         <DialogTitle>{currentKid?.name}</DialogTitle>
         <DialogContent>Her kommer brevet</DialogContent>
       </Dialog>
-    
+  
     </Box>
   );
 }

@@ -6,9 +6,9 @@ function LetterPile({ onOpen }) {
     <Box
         sx={{
             position: 'absolute',
-            left: '31%',
-            top: '50%',
-            width: 'clamp(70px, 9vw, 150px)',
+            left: '35%',
+            top: '46%',
+            width: '11%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -21,7 +21,7 @@ function LetterPile({ onOpen }) {
       alt="Bunke med brev"
       sx={{
         width: '100%',
-        filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.6))',
+        filter: 'drop-shadow(0 20px 20px rgba(0,0,0,0.8))',
       }}
     />
     <Button

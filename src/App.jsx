@@ -31,7 +31,13 @@ function App() {
     >
       <LetterPile onOpen={openRandomLetter} />
       </Box>
-      <Dialog open={currentKid !== null} onClose={() => setCurrentKid(null)}>
+      <Dialog 
+        open={currentKid !== null}
+        onClose={() => setCurrentKid(null)}
+        slotProps={{
+          paper: { sx: { backgroundColor: 'transparent', boxShadow: 'none' } },
+        }}
+      >
         <DialogContent>
           {currentKid && <Letter kid={currentKid} />}
         </DialogContent>

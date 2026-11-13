@@ -35,7 +35,7 @@ function App() {
         open={currentKid !== null}
         onClose={() => setCurrentKid(null)}
         slotProps={{
-          paper: { sx: { backgroundColor: 'transparent', boxShadow: 'none' } },
+          paper: { sx: { backgroundColor: 'transparent', boxShadow: 'none', filter: 'drop-shadow(0 6px 10px rgba(0,0,0,0.6))' } },
         }}
       >
         <DialogContent>

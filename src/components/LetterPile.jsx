@@ -1,6 +1,7 @@
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import brevbunke from '../assets/images/brevbunke.png';
 import { useState } from 'react';
+import FestiveButton from './FestiveButton';
 
 function LetterPile({ onOpen }) {
     const [hover, setHover] = useState(false); // true quando il mouse è sul pulsante
@@ -29,31 +30,16 @@ function LetterPile({ onOpen }) {
         transition: 'filter 0.3s ease', // la luce sale e scende piano
       }}
     />
-    <Button
-        variant="contained"
+    
+      <FestiveButton
+        tone="gold"
         onClick={onOpen}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        sx={{
-            marginTop: '20px',
-            whiteSpace: 'nowrap',
-            border: '3px double #3b2416',
-            fontFamily: '"Mountains of Christmas", cursive', // font natalizio dei titoli
-            fontWeight: 700,
-            fontSize: '1.3rem', // più grande
-            px: 3, // spazio a destra e sinistra
-            py: 1, // spazio sopra e sotto
-            color: '#3b2416', // testo marrone scuro, si legge bene sull'oro
-            backgroundColor: '#e8b04a', // oro della lampada
-            boxShadow: '0 0 12px rgba(232,176,74,0.7)', // alone dorato
-            '&:hover': {
-            backgroundColor: '#ffd978', // oro più chiaro al passaggio del mouse
-            boxShadow: '0 0 20px rgba(255,217,120,0.9)', // alone più forte
-                },
-        }}
-    >
+      >
         Åpne brev
-    </Button>
+      </FestiveButton>
+
     </Box>
   );
 }

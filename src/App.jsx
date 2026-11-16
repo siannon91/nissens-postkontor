@@ -96,7 +96,7 @@ function App() {
           backgroundSize: '100% 100%',
       }}
     >
-    <LetterPile onOpen={() => openRandomLetter()} />
+    <LetterPile onOpen={() => openRandomLetter()} portrait={isPortrait} />
 
     </Box>
 

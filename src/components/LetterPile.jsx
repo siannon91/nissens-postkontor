@@ -3,15 +3,18 @@ import brevbunke from '../assets/images/brevbunke.png';
 import { useState } from 'react';
 import FestiveButton from './FestiveButton';
 
-function LetterPile({ onOpen }) {
+function LetterPile({ onOpen, portrait }) {
     const [hover, setHover] = useState(false); // true quando il mouse è sul pulsante
+    const spot = portrait
+      ? { left: '33%', top: '58%', width: '14%' }
+      : { left: '35%', top: '46%', width: '11%' };
   return (
     <Box
         sx={{
             position: 'absolute',
-            left: '35%',
-            top: '46%',
-            width: '11%',
+            left: spot.left,
+            top: spot.top,
+            width: spot.width,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

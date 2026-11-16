@@ -12,18 +12,19 @@ function App() {
   const [currentKid, setCurrentKid] = useState(null);
   const [sentIds, setSentIds] = useState([]);
 
-  const openRandomLetter = (excludeId = null) => {
-    const remaining = kidsWishlist.filter((kid) => !sentIds.includes(kid.id)); // lettere ancora nella pila
+  const openRandomLetter = (excludeId = null, sent = sentIds) => {
+    const remaining = kidsWishlist.filter((kid) => !sent.includes(kid.id)); // lettere ancora nella pila
    let candidates = remaining.filter((kid) => kid.id !== excludeId); // togli quella appena letta
     if (candidates.length === 0) candidates = remaining; // se è rimasta solo quella, usa lei
-   if (candidates.length === 0) return; // pila vuota: per ora non fa niente
+   if (candidates.length === 0) { setCurrentKid(null); return; // pila vuota: chiudi la lettera
    const index = Math.floor(Math.random() * candidates.length);
    setCurrentKid(candidates[index]);
   };
 
   const sendToFactory = () => {
-    setSentIds([...sentIds, currentKid.id]); // aggiungi il bambino all'elenco degli spediti
-   setCurrentKid(null); // chiudi la lettera
+    const newSent = [...sentIds, currentKid.id]; // lista aggiornata, calcolata qui
+    setSentIds(newSent);
+    openRandomLetter(null, newSent); // apre subito la prossima, usando la lista aggiornata
   };
 
   const nextLetter = () => {

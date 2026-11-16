@@ -6,6 +6,7 @@ import '@fontsource/caveat/700.css';
 import '@fontsource/mountains-of-christmas/700.css';
 import theme from './theme';
 import App from './App.jsx';
+import '@fontsource/special-elite/400.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

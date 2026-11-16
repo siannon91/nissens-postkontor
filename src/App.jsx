@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Box, Button, Dialog, DialogContent } from '@mui/material';
+import { Box, Dialog, DialogContent } from '@mui/material';
 import bakgrunn from './assets/images/bakgrunn-desktop.jpg';
 import LetterPile from './components/LetterPile';
 import { kidsWishlist } from './data/kidsWishlist';
 import Letter from './components/Letter';
+import FestiveButton from './components/FestiveButton';
 
 const BACKGROUND_RATIO = 1376 / 768;
 
@@ -43,8 +44,8 @@ function App() {
           backgroundSize: '100% 100%',
       }}
     >
-      <LetterPile onOpen={() => openRandomLetter()} />
-      </Box>
+    <LetterPile onOpen={() => openRandomLetter()} />
+    </Box>
       <Dialog 
         open={currentKid !== null}
         onClose={() => setCurrentKid(null)}
@@ -53,29 +54,43 @@ function App() {
         }}
       >
         <DialogContent>
-          {currentKid && (
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: { xs: 'column', sm: 'row' }, // telefono: sotto; schermi medi in su: a destra
-                  alignItems: 'center',
-                  gap: 2,
-                }}
-              >
-                <Letter kid={currentKid} />
-                <Button variant="contained" color="warning" onClick={nextLetter}>
-                  Neste brev
-                </Button>
-              </Box>
-              <Button variant="contained" color="secondary" onClick={sendToFactory}>
-                Send til leketøysfabrikken
-              </Button>
-            </Box>
-          )}
+          {currentKid && <Letter kid={currentKid} />}
         </DialogContent>
       </Dialog>
-  
+      
+        {currentKid && (
+          <>
+            <FestiveButton
+              tone="gold"
+              onClick={nextLetter}
+              sx={{
+                position: 'fixed',
+                zIndex: 1400,
+                right: '4%',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                }}
+              >
+                Neste brev
+              </FestiveButton>
+
+              <FestiveButton
+                tone="green"
+                onClick={sendToFactory}
+                sx={{
+                  position: 'fixed',
+                  zIndex: 1400,
+                  left: '50%',
+                  bottom: 24,
+                  transform: 'translateX(-50%)', // centrato in orizzontale
+                }}
+              >
+                Send til leketøysfabrikken
+            </FestiveButton>
+          </>
+        )}
+      
+
     </Box>
   );
 }

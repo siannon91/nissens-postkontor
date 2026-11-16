@@ -152,9 +152,11 @@ function App() {
               sx={{
                 position: 'fixed',
                 zIndex: 1400,
-                right: '4%',
-                top: '50%',
-                transform: 'translateY(-50%)',
+                right: isPortrait ? 'auto' : '4%',
+                left: isPortrait ? '50%' : 'auto',
+                top: isPortrait ? 'auto' : '50%',
+                bottom: isPortrait ? 88 : 'auto',
+                transform: isPortrait ? 'translateX(-50%)' : 'translateY(-50%)',
                 }}
               >
                 Neste brev

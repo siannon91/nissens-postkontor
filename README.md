@@ -1,16 +1,20 @@
-# React + Vite
+# Nissens postkontor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Et julete nettsted der Julenissen åpner brevene fra barna, leser ønskelistene og sender gavene til leketøysfabrikken.
 
-Currently, two official plugins are available:
+**Se nettsiden:** https://siannon91.github.io/nissens-postkontor/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Slik fungerer det
 
-## React Compiler
+- Julenissen åpner et tilfeldig brev fra bunken.
+- Snille barn får gyllent lys og blinkende stjerner. De andre får en liten påminnelse.
+- Han kan krysse av for hvilke gaver som sendes. Snille barn har alle gavene valgt fra start, mens barn som ikke har vært snille har bare én (maks to).
+- «Neste brev» legger brevet tilbake i bunken, og «Send til leketøysfabrikken» sender det for godt, med stempel.
+- Når alle brevene er sendt, får Julenissen en avslutningshilsen og kan starte på nytt.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Teknologi
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React med Vite
+- MUI (Material UI) for komponenter og tema
+- Fontsource for skrifttypene Caveat, Mountains of Christmas og Special Elite
+- GitHub Pages for publisering

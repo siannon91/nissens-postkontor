@@ -5,6 +5,7 @@ import LetterPile from './components/LetterPile';
 import { kidsWishlist } from './data/kidsWishlist';
 import Letter from './components/Letter';
 import FestiveButton from './components/FestiveButton';
+import LetterCounter from './components/LetterCounter';
 
 const BACKGROUND_RATIO = 1376 / 768;
 
@@ -16,7 +17,7 @@ function App() {
     const remaining = kidsWishlist.filter((kid) => !sent.includes(kid.id)); // lettere ancora nella pila
    let candidates = remaining.filter((kid) => kid.id !== excludeId); // togli quella appena letta
     if (candidates.length === 0) candidates = remaining; // se è rimasta solo quella, usa lei
-   if (candidates.length === 0) { setCurrentKid(null); return; // pila vuota: chiudi la lettera
+   if (candidates.length === 0) { setCurrentKid(null); return; } // pila vuota: chiudi la lettera
    const index = Math.floor(Math.random() * candidates.length);
    setCurrentKid(candidates[index]);
   };
@@ -46,7 +47,11 @@ function App() {
       }}
     >
     <LetterPile onOpen={() => openRandomLetter()} />
+
     </Box>
+
+      <LetterCounter remaining={kidsWishlist.length - sentIds.length} />
+    
       <Dialog 
         open={currentKid !== null}
         onClose={() => setCurrentKid(null)}
@@ -95,5 +100,6 @@ function App() {
     </Box>
   );
 }
+
 
 export default App;

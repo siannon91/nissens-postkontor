@@ -6,12 +6,19 @@ import { kidsWishlist } from './data/kidsWishlist';
 import Letter from './components/Letter';
 import FestiveButton from './components/FestiveButton';
 import LetterCounter from './components/LetterCounter';
+import FinalMessage from './components/FinalMessage';
 
 const BACKGROUND_RATIO = 1376 / 768;
 
 function App() {
   const [currentKid, setCurrentKid] = useState(null);
   const [sentIds, setSentIds] = useState([]);
+  const [selectedGifts, setSelectedGifts] = useState([]);
+
+  const showKid = (kid) => {
+  setCurrentKid(kid);
+  setSelectedGifts(kid.naughty ? [kid.wishlist[0]] : kid.wishlist);
+  };
 
   const openRandomLetter = (excludeId = null, sent = sentIds) => {
     const remaining = kidsWishlist.filter((kid) => !sent.includes(kid.id)); // lettere ancora nella pila
@@ -19,7 +26,7 @@ function App() {
     if (candidates.length === 0) candidates = remaining; // se è rimasta solo quella, usa lei
    if (candidates.length === 0) { setCurrentKid(null); return; } // pila vuota: chiudi la lettera
    const index = Math.floor(Math.random() * candidates.length);
-   setCurrentKid(candidates[index]);
+   showKid(candidates[index]);
   };
 
   const sendToFactory = () => {
@@ -29,7 +36,19 @@ function App() {
   };
 
   const nextLetter = () => {
-    openRandomLetter(currentKid.id); // la lettera torna nella pila e ne esce un'altra
+    openRandomLetter(currentKid.id);  // la lettera torna nella pila e ne esce un'altra
+  };
+  const toggleGift = (gift) => {
+    setSelectedGifts(
+      selectedGifts.includes(gift)
+      ? selectedGifts.filter((g) => g !== gift)
+      : [...selectedGifts, gift]
+    );
+  };
+
+  const restart = () => {
+  setSentIds([]); // tutte le lettere tornano nella pila
+  setCurrentKid(null);
   };
 
   return (
@@ -52,6 +71,8 @@ function App() {
 
       <LetterCounter remaining={kidsWishlist.length - sentIds.length} />
     
+      {sentIds.length === kidsWishlist.length && <FinalMessage onRestart={restart} />}
+
       <Dialog 
         open={currentKid !== null}
         onClose={() => setCurrentKid(null)}
@@ -60,8 +81,11 @@ function App() {
         }}
       >
         <DialogContent>
-          {currentKid && <Letter kid={currentKid} />}
+          {currentKid && (
+            <Letter kid={currentKid} selected={selectedGifts} onToggle={toggleGift} />
+          )}
         </DialogContent>
+        
       </Dialog>
       
         {currentKid && (

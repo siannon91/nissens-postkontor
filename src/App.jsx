@@ -16,30 +16,53 @@ function App() {
   const [currentKid, setCurrentKid] = useState(null);
   const [sentIds, setSentIds] = useState([]);
   const [selectedGifts, setSelectedGifts] = useState([]);
+  const [enter, setEnter] = useState('pile');
+  const [exit, setExit] = useState(null);
+  const [stamped, setStamped] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [letterKey, setLetterKey] = useState(0);
 
-  const showKid = (kid) => {
-  setCurrentKid(kid);
-  setSelectedGifts(kid.naughty ? [kid.wishlist[0]] : kid.wishlist);
+  const showKid = (kid, from = 'pile') => {
+    setEnter(from);
+    setExit(null);
+    setStamped(false);
+    setLetterKey(letterKey + 1);
+    setCurrentKid(kid);
+    setSelectedGifts(kid.naughty ? [kid.wishlist[0]] : kid.wishlist);
   };
 
-  const openRandomLetter = (excludeId = null, sent = sentIds) => {
+  const openRandomLetter = (excludeId = null, sent = sentIds, from = 'pile') => {
     const remaining = kidsWishlist.filter((kid) => !sent.includes(kid.id)); // lettere ancora nella pila
    let candidates = remaining.filter((kid) => kid.id !== excludeId); // togli quella appena letta
     if (candidates.length === 0) candidates = remaining; // se è rimasta solo quella, usa lei
    if (candidates.length === 0) { setCurrentKid(null); return; } // pila vuota: chiudi la lettera
    const index = Math.floor(Math.random() * candidates.length);
-   showKid(candidates[index]);
+   showKid(candidates[index], from);
   };
 
   const sendToFactory = () => {
-    const newSent = [...sentIds, currentKid.id]; // lista aggiornata, calcolata qui
-    setSentIds(newSent);
-    openRandomLetter(null, newSent); // apre subito la prossima, usando la lista aggiornata
+    setBusy(true);
+    setStamped(true);
+    setTimeout(() => {
+      setExit('down');
+      setTimeout(() => {
+        const newSent = [...sentIds, currentKid.id]; // lista aggiornata, calcolata qui
+        setSentIds(newSent);
+        setBusy(false);
+        openRandomLetter(null, newSent, 'right');
+      }, 500);
+    }, 1500);
   };
 
   const nextLetter = () => {
-    openRandomLetter(currentKid.id);  // la lettera torna nella pila e ne esce un'altra
+    setBusy(true);
+    setExit('left');
+    setTimeout(() => {
+      setBusy(false);
+      openRandomLetter(currentKid.id, sentIds, 'right');
+    }, 400);  
   };
+
   const toggleGift = (gift) => {
     if (selectedGifts.includes(gift)) {
       setSelectedGifts(selectedGifts.filter((g) => g !== gift));
@@ -91,6 +114,7 @@ function App() {
             sx: {
               backgroundColor: 'transparent',
               boxShadow: 'none',
+              overflow: 'visible',
               filter: currentKid?.naughty === false
               ? 'drop-shadow(0 6px 10px rgba(0,0,0,0.6)) drop-shadow(0 0 8px #ffd978) drop-shadow(0 0 22px #e8b04a)' // bravo
               : 'drop-shadow(0 6px 10px rgba(0,0,0,0.6))', // non bravo
@@ -98,9 +122,17 @@ function App() {
           },
         }}
       >
-        <DialogContent>
+        <DialogContent sx={{ overflow: 'visible' }}>
           {currentKid && (
-            <Letter kid={currentKid} selected={selectedGifts} onToggle={toggleGift} />
+            <Letter
+              key={letterKey}
+              kid={currentKid}
+              selected={selectedGifts}
+              onToggle={toggleGift}
+              enter={enter}
+              exit={exit}
+              stamped={stamped}
+            />
           )}
         </DialogContent>
         
@@ -111,6 +143,7 @@ function App() {
             <FestiveButton
               tone="gold"
               onClick={nextLetter}
+              disabled={busy}
               sx={{
                 position: 'fixed',
                 zIndex: 1400,
@@ -124,7 +157,7 @@ function App() {
 
               <FestiveButton
                 tone="green"
-                onClick={sendToFactory} disabled={selectedGifts.length === 0}
+                onClick={sendToFactory} disabled={selectedGifts.length === 0 || busy}
                 sx={{
                   position: 'fixed',
                   zIndex: 1400,

@@ -81,7 +81,15 @@ function App() {
           setCurrentKid(null);
         }}
         slotProps={{
-          paper: { sx: { backgroundColor: 'transparent', boxShadow: 'none', filter: 'drop-shadow(0 6px 10px rgba(0,0,0,0.6))' } },
+          paper: { 
+            sx: {
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+              filter: currentKid?.naughty === false
+              ? 'drop-shadow(0 6px 10px rgba(0,0,0,0.6)) drop-shadow(0 0 8px #ffd978) drop-shadow(0 0 22px #e8b04a)' // bravo
+              : 'drop-shadow(0 6px 10px rgba(0,0,0,0.6))', // non bravo
+            },
+          },
         }}
       >
         <DialogContent>

@@ -13,10 +13,10 @@ function FestiveButton({ tone = 'gold', sx, ...props }) {
       sx={{
         fontFamily: '"Mountains of Christmas", cursive',
         fontWeight: 700,
-        fontSize: '1.3rem',
+        fontSize: { xs: '1rem', sm: '1.3rem' },
         textTransform: 'uppercase',
         whiteSpace: 'nowrap',
-        px: 3,
+        px: { xs: 2, sm: 3 },
         py: 1,
         color: t.color,
         backgroundColor: t.bg,

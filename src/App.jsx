@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Dialog, DialogContent } from '@mui/material';
+import { Box, Dialog, DialogContent, useMediaQuery  } from '@mui/material';
 import bakgrunn from './assets/images/bakgrunn-desktop.jpg';
 import LetterPile from './components/LetterPile';
 import { kidsWishlist } from './data/kidsWishlist';
@@ -9,10 +9,15 @@ import LetterCounter from './components/LetterCounter';
 import FinalMessage from './components/FinalMessage';
 import KidStatus from './components/KidStatus';
 import Sparkles from './components/Sparkles';
+import bakgrunnMobil from './assets/images/bakgrunn-mobil.jpg';
 
 const BACKGROUND_RATIO = 1376 / 768;
+const MOBILE_RATIO = 768 / 1376;
 
 function App() {
+  const isPortrait = useMediaQuery('(orientation: portrait)');
+  const ratio = isPortrait ? MOBILE_RATIO : BACKGROUND_RATIO;
+  const background = isPortrait ? bakgrunnMobil : bakgrunn;
   const [currentKid, setCurrentKid] = useState(null);
   const [sentIds, setSentIds] = useState([]);
   const [selectedGifts, setSelectedGifts] = useState([]);
@@ -85,9 +90,9 @@ function App() {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: `max(100vw, calc(100dvh * ${BACKGROUND_RATIO}))`,
-          aspectRatio: `${BACKGROUND_RATIO}`,
-          backgroundImage: `url(${bakgrunn})`,
+          width: `max(100vw, calc(100dvh * ${ratio}))`,
+          aspectRatio: `${ratio}`,
+          backgroundImage: `url(${background})`,
           backgroundSize: '100% 100%',
       }}
     >

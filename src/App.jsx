@@ -7,6 +7,7 @@ import Letter from './components/Letter';
 import FestiveButton from './components/FestiveButton';
 import LetterCounter from './components/LetterCounter';
 import FinalMessage from './components/FinalMessage';
+import KidStatus from './components/KidStatus';
 
 const BACKGROUND_RATIO = 1376 / 768;
 
@@ -72,6 +73,8 @@ function App() {
 
       <LetterCounter remaining={kidsWishlist.length - sentIds.length} />
     
+      <KidStatus kid={currentKid} />
+
       {sentIds.length === kidsWishlist.length && <FinalMessage onRestart={restart} />}
 
       <Dialog 

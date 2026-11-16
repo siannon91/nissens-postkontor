@@ -39,11 +39,12 @@ function App() {
     openRandomLetter(currentKid.id);  // la lettera torna nella pila e ne esce un'altra
   };
   const toggleGift = (gift) => {
-    setSelectedGifts(
-      selectedGifts.includes(gift)
-      ? selectedGifts.filter((g) => g !== gift)
-      : [...selectedGifts, gift]
-    );
+    if (selectedGifts.includes(gift)) {
+      setSelectedGifts(selectedGifts.filter((g) => g !== gift));
+      return;
+    }
+    if (currentKid.naughty && selectedGifts.length >= 2) return;
+    setSelectedGifts([...selectedGifts, gift]);
   };
 
   const restart = () => {
@@ -75,7 +76,10 @@ function App() {
 
       <Dialog 
         open={currentKid !== null}
-        onClose={() => setCurrentKid(null)}
+        onClose={(event, reason) => {
+          if (reason === 'backdropClick') return;
+          setCurrentKid(null);
+        }}
         slotProps={{
           paper: { sx: { backgroundColor: 'transparent', boxShadow: 'none', filter: 'drop-shadow(0 6px 10px rgba(0,0,0,0.6))' } },
         }}
@@ -106,7 +110,7 @@ function App() {
 
               <FestiveButton
                 tone="green"
-                onClick={sendToFactory}
+                onClick={sendToFactory} disabled={selectedGifts.length === 0}
                 sx={{
                   position: 'fixed',
                   zIndex: 1400,

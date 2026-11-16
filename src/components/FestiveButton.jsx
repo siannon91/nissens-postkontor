@@ -25,6 +25,11 @@ function FestiveButton({ tone = 'gold', sx, ...props }) {
           backgroundColor: t.hoverBg,
           boxShadow: `0 0 20px rgba(${t.glow},0.9)`,
         },
+        '&.Mui-disabled': {
+          backgroundColor: '#6b5b4b',
+          color: '#b8a898',
+          boxShadow: 'none',
+        },
         ...sx, // permette a chi lo usa di aggiungere altri stili (es. la posizione)
       }}
     />

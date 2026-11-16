@@ -36,6 +36,7 @@ function Letter({ kid, selected, onToggle }) {
                 checked={selected.includes(gift)} // spuntata se il regalo è tra quelli scelti
                 onChange={() => onToggle(gift)} // avvisa App quando clicchi
                 color="primary"
+                disabled={kid.naughty && selected.length >= 2 && !selected.includes(gift)} // non bravo con 2 spunte: le altre caselle si bloccano
               />
             }
           />

@@ -8,7 +8,7 @@ const stampIn = keyframes`
 `;
 
 function Stamp({ nice }) {
-  const color = nice ? '#2e5d3a' : '#9b1c2c';
+  const color = nice ? '#2e5d3a' : '#6b4423';
 
   return (
     <Box

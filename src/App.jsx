@@ -26,6 +26,7 @@ function App() {
   const [stamped, setStamped] = useState(false);
   const [busy, setBusy] = useState(false);
   const [letterKey, setLetterKey] = useState(0);
+  const isLast = kidsWishlist.length - sentIds.length === 1;
 
   const showKid = (kid, from = 'pile') => {
     setEnter(from);
@@ -150,7 +151,7 @@ function App() {
             <FestiveButton
               tone="gold"
               onClick={nextLetter}
-              disabled={busy}
+              disabled={busy || isLast}
               sx={{
                 position: 'fixed',
                 zIndex: 1400,
@@ -161,7 +162,7 @@ function App() {
                 transform: isPortrait ? 'translateX(-50%)' : 'translateY(-50%)',
                 }}
               >
-                Neste brev
+                {isLast ? 'Siste brev' : 'Neste brev'}
               </FestiveButton>
 
               <FestiveButton

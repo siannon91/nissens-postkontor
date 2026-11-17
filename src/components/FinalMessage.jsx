@@ -23,9 +23,8 @@ function FinalMessage({ onRestart }) {
         sx={{
           fontFamily: 'inherit',
           fontWeight: 700,
-          fontSize: { xs: '2rem', sm: '3rem' },
-          color: '#ffd978',
-          textShadow: '0 0 14px rgba(232,176,74,0.8), 0 2px 4px rgba(0,0,0,0.8)',
+          fontSize: { xs: '1.4rem', sm: '2rem' },
+          color: '#fff3c4',
         }}
       >
         Vi har gjort jobben vår for i år!
@@ -35,8 +34,9 @@ function FinalMessage({ onRestart }) {
         sx={{
           fontFamily: 'inherit',
           fontWeight: 700,
-          fontSize: { xs: '1.4rem', sm: '2rem' },
-          color: '#fff3c4',
+          fontSize: { xs: '2rem', sm: '3rem' },
+          color: '#ffd978',
+          textShadow: '0 0 14px rgba(232,176,74,0.8), 0 2px 4px rgba(0,0,0,0.8)',
         }}
       >
         God jul! Husk å være snille og greie! Nissen

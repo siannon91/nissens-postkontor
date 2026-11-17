@@ -11,7 +11,7 @@ function LetterCounter({ remaining }) {
         transform: 'translateX(-50%)',
         fontFamily: '"Mountains of Christmas", cursive',
         fontWeight: 700,
-        fontSize: '1.6rem',
+        fontSize: '2rem',
         textTransform: 'uppercase',
         whiteSpace: 'nowrap',
         color: '#ffd978',

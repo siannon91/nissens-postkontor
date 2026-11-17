@@ -15,7 +15,7 @@ function KidStatus({ kid }) {
         transform: 'translateX(-50%)',
         fontFamily: '"Mountains of Christmas", cursive',
         fontWeight: 700,
-        fontSize: { xs: '1.2rem', sm: '1.6rem' },
+        fontSize: { xs: '1.4rem', sm: '1.8rem' },
         whiteSpace: 'nowrap',
         color: isNice ? '#ffd978' : '#cfe0f5',
         textShadow: isNice

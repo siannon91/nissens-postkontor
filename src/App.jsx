@@ -119,6 +119,8 @@ function App() {
             sx: {
               backgroundColor: 'transparent',
               boxShadow: 'none',
+              width: 480,
+              maxWidth: '92vw',
               overflow: 'visible',
               filter: currentKid?.naughty === false
               ? 'drop-shadow(0 6px 10px rgba(0,0,0,0.6)) drop-shadow(0 0 8px #ffd978) drop-shadow(0 0 22px #e8b04a)' // bravo
@@ -152,8 +154,8 @@ function App() {
               sx={{
                 position: 'fixed',
                 zIndex: 1400,
-                right: isPortrait ? 'auto' : '4%',
-                left: isPortrait ? '50%' : 'auto',
+                right: 'auto',
+                left: isPortrait ? '50%' : 'calc(50% + 280px)',
                 top: isPortrait ? 'auto' : '50%',
                 bottom: isPortrait ? 88 : 'auto',
                 transform: isPortrait ? 'translateX(-50%)' : 'translateY(-50%)',

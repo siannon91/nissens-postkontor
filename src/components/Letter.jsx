@@ -54,6 +54,7 @@ function Letter({ kid, selected, onToggle, enter, exit, stamped }) {
           <FormControlLabel
             key={gift}
             label={gift}
+            sx={{ '& .MuiFormControlLabel-label': { fontSize: '1.3rem' } }} 
             control={
               <Checkbox
                 checked={selected.includes(gift)} // spuntata se il regalo è tra quelli scelti

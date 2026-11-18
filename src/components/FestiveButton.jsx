@@ -30,7 +30,7 @@ function FestiveButton({ tone = 'gold', sx, ...props }) {
           color: '#b8a898',
           boxShadow: 'none',
         },
-        ...sx, // permette a chi lo usa di aggiungere altri stili (es. la posizione)
+        ...sx,
       }}
     />
   );

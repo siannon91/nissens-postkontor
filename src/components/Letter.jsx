@@ -57,10 +57,10 @@ function Letter({ kid, selected, onToggle, enter, exit, stamped }) {
             sx={{ '& .MuiFormControlLabel-label': { fontSize: '1.3rem' } }} 
             control={
               <Checkbox
-                checked={selected.includes(gift)} // spuntata se il regalo è tra quelli scelti
-                onChange={() => onToggle(gift)} // avvisa App quando clicchi
+                checked={selected.includes(gift)}
+                onChange={() => onToggle(gift)}
                 color="primary"
-                disabled={kid.naughty && selected.length >= 2 && !selected.includes(gift)} // non bravo con 2 spunte: le altre caselle si bloccano
+                disabled={kid.naughty && selected.length >= 2 && !selected.includes(gift)}
               />
             }
           />

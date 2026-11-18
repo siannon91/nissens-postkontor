@@ -11,6 +11,8 @@ import KidStatus from './components/KidStatus';
 import Sparkles from './components/Sparkles';
 import bakgrunnMobil from './assets/images/bakgrunn-mobil.jpg';
 
+// Bildeforholdet til bakgrunnsbildene. Brukes til å lage en "scene" som skalerer
+// sammen med bildet, slik at brevbunken alltid ligger på skrivebordet.
 const BACKGROUND_RATIO = 1376 / 768;
 const MOBILE_RATIO = 768 / 1376;
 
@@ -37,6 +39,8 @@ function App() {
     setSelectedGifts(kid.naughty ? [kid.wishlist[0]] : kid.wishlist);
   };
 
+// "sent" sendes inn som parameter fordi React ikke oppdaterer state med en gang.
+// Uten den kunne et brev som akkurat er sendt dukke opp igjen.
   const openRandomLetter = (excludeId = null, sent = sentIds, from = 'pile') => {
     const remaining = kidsWishlist.filter((kid) => !sent.includes(kid.id)); // lettere ancora nella pila
    let candidates = remaining.filter((kid) => kid.id !== excludeId); // togli quella appena letta
@@ -46,13 +50,15 @@ function App() {
    showKid(candidates[index], from);
   };
 
+// Rekkefølge: stempel vises, brevet går ut, og først da fjernes det fra bunken.
+// Tiden i setTimeout må stemme med varigheten på animasjonene i Letter.jsx.
   const sendToFactory = () => {
     setBusy(true);
     setStamped(true);
     setTimeout(() => {
       setExit('down');
       setTimeout(() => {
-        const newSent = [...sentIds, currentKid.id]; // lista aggiornata, calcolata qui
+        const newSent = [...sentIds, currentKid.id];
         setSentIds(newSent);
         setBusy(false);
         openRandomLetter(null, newSent, 'right');
@@ -69,6 +75,7 @@ function App() {
     }, 400);  
   };
 
+  // Snille barn kan velge alle gaver, de andre maks to.
   const toggleGift = (gift) => {
     if (selectedGifts.includes(gift)) {
       setSelectedGifts(selectedGifts.filter((g) => g !== gift));
@@ -79,7 +86,7 @@ function App() {
   };
 
   const restart = () => {
-  setSentIds([]); // tutte le lettere tornano nella pila
+  setSentIds([]);
   setCurrentKid(null);
   };
 
@@ -112,6 +119,7 @@ function App() {
       <Dialog 
         open={currentKid !== null}
         onClose={(event, reason) => {
+          // Ignorerer klikk utenfor brevet, ellers lukkes det når man trykker på en deaktivert knapp.
           if (reason === 'backdropClick') return;
           setCurrentKid(null);
         }}
@@ -124,8 +132,8 @@ function App() {
               maxWidth: '92vw',
               overflow: 'visible',
               filter: currentKid?.naughty === false
-              ? 'drop-shadow(0 6px 10px rgba(0,0,0,0.6)) drop-shadow(0 0 8px #ffd978) drop-shadow(0 0 22px #e8b04a)' // bravo
-              : 'drop-shadow(0 6px 10px rgba(0,0,0,0.6))', // non bravo
+              ? 'drop-shadow(0 6px 10px rgba(0,0,0,0.6)) drop-shadow(0 0 8px #ffd978) drop-shadow(0 0 22px #e8b04a)' // snill
+              : 'drop-shadow(0 6px 10px rgba(0,0,0,0.6))', // ikke snill
             },
           },
         }}
@@ -145,7 +153,7 @@ function App() {
         </DialogContent>
         
       </Dialog>
-      
+        {/* Knappene ligger utenfor Dialog og er fastsatt på skjermen, så de flytter seg ikke selv om brevet har ulik høyde */}
         {currentKid && (
           <>
             <FestiveButton
@@ -173,7 +181,7 @@ function App() {
                   zIndex: 1400,
                   left: '50%',
                   bottom: 24,
-                  transform: 'translateX(-50%)', // centrato in orizzontale
+                  transform: 'translateX(-50%)',
                 }}
               >
                 Send til leketøysfabrikken
